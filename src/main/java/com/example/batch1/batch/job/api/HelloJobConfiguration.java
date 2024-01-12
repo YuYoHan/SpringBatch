@@ -9,6 +9,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +19,7 @@ public class HelloJobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
+    @Qualifier("helloJobApi")
     @Bean
     public Job helloJob() {
         return jobBuilderFactory.get("helloJob")
@@ -32,7 +34,9 @@ public class HelloJobConfiguration {
                     @Override
                     public RepeatStatus execute(StepContribution contribution,
                                                 ChunkContext chunkContext) throws Exception {
+                        System.out.println("===============");
                         System.out.println("Hello Batch!!");
+                        System.out.println("===============");
                         return RepeatStatus.FINISHED;
                     }
                 }).build();
@@ -44,7 +48,9 @@ public class HelloJobConfiguration {
                     @Override
                     public RepeatStatus execute(StepContribution contribution,
                                                 ChunkContext chunkContext) throws Exception {
+                        System.out.println("===============");
                         System.out.println("Hello Batch2!!");
+                        System.out.println("===============");
                         return RepeatStatus.FINISHED;
                     }
                 }).build();

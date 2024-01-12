@@ -2,6 +2,8 @@ spring:
   profiles:
     active: local
 
+server:
+  port: 9090
 ---
 spring:
   config:
@@ -12,18 +14,48 @@ spring:
       enabled: true
     restart:
       enabled: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+
+  jpa:
+    # 데이터베이스 플랫폼을 지정
+    database-platform: org.hibernate.dialect.H2Dialect
+    # JPA Open EntityManager in View 패턴을 활성화 또는 비활성화
+    open-in-view: true
+    hibernate:
+      # Hibernate가 데이터베이스 스키마를 자동으로 생성 또는 갱신할 때 사용
+      ddl-auto: update
+    properties:
+      hibernate:
+        # SQL 쿼리를 보기 쉽게 형식화할지 여부를 지정
+        format_sql: true
+        # LAZY 로딩 시 기본적으로 사용되는 배치 크기를 설정
+        default_batch_fetch_size: 100
+        # JDBC 배치 크기를 설정
+        jdbc:
+          batch_size: 10
+        # SQL 쿼리에 주석을 추가할지 여부를 지정
+        use_sql_comments: true
   batch:
-#    job:
-#      names: ${job.name:NONE}
+    #    job:
+    #      names: ${job.name:NONE}
     jdbc:
-      initialize-schema: embedded
+      initialize-schema: always
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test
     username: root
     password: 1234
   jpa:
-    database-platform:  org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
     hibernate:
       ddl-auto: update
@@ -32,7 +64,22 @@ spring:
         format_sql: true
         default_batch_fetch_size: 500
 
+  batch:
+#    job:
+#      names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: embedded
+
+
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+---
+# bean 오버라이딩 활성화
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+---

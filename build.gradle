@@ -35,6 +35,9 @@ dependencies {
     implementation 'org.quartz-scheduler:quartz'
     implementation 'org.apache.httpcomponents:httpclient'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2'
+    // H2
+    implementation 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'
 
 }
 

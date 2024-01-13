@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: mysql
 
 server:
   port: 9090
@@ -40,8 +40,8 @@ spring:
         # SQL 쿼리에 주석을 추가할지 여부를 지정
         use_sql_comments: true
   batch:
-    #    job:
-    #      names: ${job.name:NONE}
+    job:
+      enabled: false
     jdbc:
       initialize-schema: always
 ---
@@ -65,8 +65,8 @@ spring:
         default_batch_fetch_size: 500
 
   batch:
-#    job:
-#      names: ${job.name:NONE}
+    job:
+      enabled: false
     jdbc:
       initialize-schema: embedded
 

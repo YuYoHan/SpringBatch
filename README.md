@@ -31,3 +31,4 @@ Spring Batch를 사용하여 오전 10시에 실행하는 배치작업을 구현
 ---
 # 블로그
 [스프링 배치](https://velog.io/@zxzz45/series/Spring-Batch)
+[노션](https://www.notion.so/Spring-Batch-f4d7ba194de445759d9aa1408fa203a6)

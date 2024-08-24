@@ -35,6 +35,7 @@ dependencies {
     implementation 'org.quartz-scheduler:quartz'
     implementation 'org.apache.httpcomponents:httpclient'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2'
+    runtimeOnly 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('bootBuildImage') {

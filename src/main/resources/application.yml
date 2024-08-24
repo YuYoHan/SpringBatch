@@ -1,6 +1,9 @@
 spring:
   profiles:
-    active: local
+    active: mysql
+
+server:
+  port: 9090
 
 ---
 spring:
@@ -19,7 +22,7 @@ spring:
       initialize-schema: embedded
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/test
+    url: jdbc:h2:mem:test
     username: sa
     password:
   jpa:
@@ -36,3 +39,29 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  batch:
+    jdbc:
+      initialize-schema: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springBatch?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 1234
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 500

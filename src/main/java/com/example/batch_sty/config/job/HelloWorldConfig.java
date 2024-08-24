@@ -18,25 +18,30 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class HelloWorldConfig {
+    // Job을 생성하는 빌더 팩토리
     private final JobBuilderFactory jobBuilderFactory;
+    // Step을 생성하는 빌더 팩토리
     private final StepBuilderFactory stepBuilderFactory;
 
+    // helloJob 이름으로 Job 생성
     @Bean
     public Job helloWorldJob() {
-        return jobBuilderFactory.get("hellWorldJob")
+        return jobBuilderFactory.get("helloJob")
                 .incrementer(new RunIdIncrementer())
                 .start(helloWorldStep())
                 .build();
     }
 
+    // helloStep 이름으로 Step 생성
     @JobScope
     @Bean
     public Step helloWorldStep() {
-        return stepBuilderFactory.get("helloWorldStep")
+        return stepBuilderFactory.get("helloStep")
                 .tasklet(helloWroldTasklet())
                 .build();
     }
 
+    // Step 안에서 단일 태스크로 수행되는 로직 구현
     @StepScope
     @Bean
     public Tasklet helloWroldTasklet() {

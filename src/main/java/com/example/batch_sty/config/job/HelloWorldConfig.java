@@ -24,9 +24,9 @@ public class HelloWorldConfig {
     private final StepBuilderFactory stepBuilderFactory;
 
     // helloJob 이름으로 Job 생성
-    @Bean
+    @Bean(name = "helloWorldJob")
     public Job helloWorldJob() {
-        return jobBuilderFactory.get("helloJob")
+        return jobBuilderFactory.get("helloWorldJob")
                 .incrementer(new RunIdIncrementer())
                 .start(helloWorldStep())
                 .build();
@@ -34,16 +34,16 @@ public class HelloWorldConfig {
 
     // helloStep 이름으로 Step 생성
     @JobScope
-    @Bean
+    @Bean(name = "helloWorldStep")
     public Step helloWorldStep() {
-        return stepBuilderFactory.get("helloStep")
+        return stepBuilderFactory.get("helloWorldStep")
                 .tasklet(helloWroldTasklet())
                 .build();
     }
 
     // Step 안에서 단일 태스크로 수행되는 로직 구현
     @StepScope
-    @Bean
+    @Bean(name = "helloWroldTasklet")
     public Tasklet helloWroldTasklet() {
         return new Tasklet() {
             @Override

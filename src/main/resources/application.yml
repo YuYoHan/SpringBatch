@@ -16,8 +16,9 @@ spring:
     restart:
       enabled: true
   batch:
-#    job:
-#      names: ${job.name:NONE}
+    job:
+      enabled: true
+    #      names: ${job.name:NONE}
     jdbc:
       initialize-schema: embedded
   datasource:

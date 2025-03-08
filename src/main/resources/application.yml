@@ -1,12 +1,14 @@
 spring:
   profiles:
-    active: mysql
+    active: local
 
 server:
   port: 9090
 
 ---
 spring:
+  main:
+    allow-bean-definition-overriding: true
   config:
     activate:
       on-profile: local
@@ -20,7 +22,7 @@ spring:
       enabled: true
     #      names: ${job.name:NONE}
     jdbc:
-      initialize-schema: embedded
+      initialize-schema: always
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:test

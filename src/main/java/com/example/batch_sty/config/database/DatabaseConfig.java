@@ -35,7 +35,7 @@ public class DatabaseConfig {
     public LocalContainerEntityManagerFactoryBean primaryDataEntityManager() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(primaryDataDBSource());
-        em.setPackagesToScan("com.example.batch_sty.entity");
+        em.setPackagesToScan("com.example.batch_sty.entity.mysql");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         HashMap<String, Object> properties = new HashMap<>();
@@ -47,7 +47,7 @@ public class DatabaseConfig {
 
     @Primary
     @Bean(name = "secondTransactionManager")
-    public PlatformTransactionManager secondTransactionManager() {
+    public PlatformTransactionManager primaryTransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(primaryDataEntityManager().getObject());
         return transactionManager;

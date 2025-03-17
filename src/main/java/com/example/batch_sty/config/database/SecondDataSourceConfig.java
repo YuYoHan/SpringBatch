@@ -32,7 +32,7 @@ public class SecondDataSourceConfig {
     public LocalContainerEntityManagerFactoryBean secondDataEntityManager() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(secondDataDBSource());
-        em.setPackagesToScan("com.example.batch_sty.entity");
+        em.setPackagesToScan("com.example.batch_sty.entity.h2");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         HashMap<String, Object> properties = new HashMap<>();

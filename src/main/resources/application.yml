@@ -1,12 +1,4 @@
 spring:
-  profiles:
-    active: local
-
-server:
-  port: 9090
-
----
-spring:
   main:
     allow-bean-definition-overriding: true
   config:
@@ -19,15 +11,20 @@ spring:
       enabled: true
   batch:
     job:
-      enabled: true
+      enabled: false
     #      names: ${job.name:NONE}
     jdbc:
       initialize-schema: always
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test
-    username: sa
-    password:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:test
+      username: sa
+      password:
+  sub-datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/springBatch?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: 1234
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     open-in-view: true
@@ -42,31 +39,6 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
----
-spring:
-  config:
-    activate:
-      on-profile: mysql
-  devtools:
-    livereload:
-      enabled: true
-    restart:
-      enabled: true
-  batch:
-    jdbc:
-      initialize-schema: always
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/springBatch?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: 1234
-  jpa:
-    open-in-view: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-        default_batch_fetch_size: 500
-  main:
-    allow-bean-definition-overriding: true
+
+server:
+  port: 9090

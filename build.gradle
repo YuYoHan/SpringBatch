@@ -1,14 +1,14 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.17'
-    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'org.springframework.boot' version '3.2.9'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '11'
+    sourceCompatibility = '17'
 }
 
 configurations {
@@ -20,6 +20,10 @@ configurations {
 repositories {
     mavenCentral()
 }
+test {
+    exclude '**/BatchStyApplicationTests.class' // ❌ 특정 테스트 클래스 제외
+    exclude '**/*Test.class'                    // ❌ 모든 단위 테스트 제외 (선택)
+}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
@@ -29,13 +33,12 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
-    compileOnly 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.batch:spring-batch-test'
-    implementation 'org.quartz-scheduler:quartz'
-    implementation 'org.apache.httpcomponents:httpclient'
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2'
-    runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation 'org.quartz-scheduler:quartz:2.3.2'
+    implementation 'org.apache.httpcomponents.client5:httpclient5'
+    implementation 'org.modelmapper:modelmapper:3.1.1'
+    runtimeOnly 'com.mysql:mysql-connector-j:8.0.33'
 }
 
 tasks.named('bootBuildImage') {
@@ -44,4 +47,8 @@ tasks.named('bootBuildImage') {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
 }

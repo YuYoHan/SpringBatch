@@ -17,10 +17,21 @@ public class MainController {
 
     @GetMapping("/first")
     public String firstApi(@RequestParam("value") String value) throws Exception {
-        JobParameters jobParameters = new JobParametersBuilder()
-                .addString("data", value)
-                .toJobParameters();
+        JobParameters jobParameters = getJobParameters(value);
         jobLauncher.run(jobRegistry.getJob("firstJob"), jobParameters);
         return "ok";
+    }
+
+    @GetMapping("/second")
+    public String secondApi(@RequestParam("value") String value) throws Exception {
+        JobParameters jobParameters = getJobParameters(value);
+        jobLauncher.run(jobRegistry.getJob("firstJob"), jobParameters);
+        return "ok";
+    }
+
+    private static JobParameters getJobParameters(String value) {
+        return new JobParametersBuilder()
+                .addString("data", value)
+                .toJobParameters();
     }
 }
